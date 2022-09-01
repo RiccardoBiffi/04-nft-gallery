@@ -1,7 +1,7 @@
 import icon from '../public/copy.png';
 
 export const NFTCard = ({ nft }) => {
-    const contractAddress = nft.contract.address.slice(0, 6) +
+    const minContractAddress = nft.contract.address.slice(0, 6) +
         "..." +
         nft.contract.address.slice(nft.contract.address.length - 5, nft.contract.address.length - 1);
 
@@ -21,8 +21,8 @@ export const NFTCard = ({ nft }) => {
                         {nft.title}
                     </h2>
                     <p className="text-gray-600">Id: {Number(nft.id.tokenId)}</p>
-                    <p className="text-gray-600" >{contractAddress}</p>
-                    <img src={icon} onClick={() => copyOnClickboard(contractAddress)} />
+                    <p className="d-inline text-gray-600" >{minContractAddress}</p>
+                    <img className="d-inline" width="20" src={icon.src} onClick={() => copyOnClickboard(nft.contract.address)} />
                 </div>
                 <div className="flex-grow mt-2">
                     <p className="text-gray-600">{nft.description}</p>
