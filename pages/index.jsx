@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { NFTCard } from '../components/nftCard';
 
 const Home = () => {
@@ -12,7 +12,8 @@ const Home = () => {
 
   useEffect(
     () => {
-      fetchForCollection ? fetchNFTsForCollection() : fetchNFTs();
+      if (wallet || (collection && fetchForCollection))
+        fetchForCollection ? fetchNFTsForCollection() : fetchNFTs()
     },
     [currentPage],
   );
@@ -93,7 +94,10 @@ const Home = () => {
           className={"disabled:bg-slate-500 text-white bg-blue-400 px-4 py-2 mt-3 rounded-sm w-1/5"}
           onClick={() => {
             updatePages([0]);
-            setCurrentPage(0); // hack activate fetching effect
+            if (currentPage === 0)
+              fetchForCollection ? fetchNFTsForCollection() : fetchNFTs();
+            else
+              setCurrentPage(0);
           }}>
           Let's go!
         </button>
